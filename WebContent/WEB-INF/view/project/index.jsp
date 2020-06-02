@@ -46,9 +46,9 @@ License URL: https://creativecommons.org/licenses/by/4.0/
         <div class="container">
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item" ><a class="nav-link smooth-scroll" href="#home">Home</a></li>
-                <li class="nav-item" ><a class="nav-link smooth-scroll" href="#comp-offer">News</a></li> 
-                <li class="nav-item" ><a class="nav-link smooth-scroll" href="#service-h">Ranking</a></li> 
+                <li  data-target="#home"><a class="nav-link smooth-scroll" href="#home">Home</a></li>
+                <li  data-target="#comp-offer"><a class="nav-link smooth-scroll" href="#comp-offer">News</a></li> 
+                <li  data-target="#service"><a class="nav-link smooth-scroll" href="#service-h">Ranking</a></li> 
                 <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
@@ -75,7 +75,6 @@ License URL: https://creativecommons.org/licenses/by/4.0/
         </div>
       </nav>
     </header> 
-
 
 
 <!--====================================================
@@ -178,7 +177,8 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                  
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><script src="/js/jquery-3.4.1.min.js"></script>
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(window).on("load", function() {
 
@@ -217,6 +217,15 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 		})
 
 	}
+</script>
+<script type="text/javascript">
+$(".navbar-nav ml-auto li").click(function() {
+  var scrollPosition = $($(this).attr("data-target")).offset().top;
+
+  $("body").animate({
+        scrollTop: scrollPosition
+  }, 500);
+})
 </script>
 </div>
                   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">

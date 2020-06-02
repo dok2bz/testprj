@@ -18,7 +18,7 @@ public class thread_jsoup extends Thread {
 			doc = Jsoup.connect(url).get();
 
 			// <div class="service_list_song"> 이 태그 내에서 있는 HTML소스만 element에 저장됨
-			Elements rowElements = doc.select("tbody#rank_data_lists > tr");
+			Elements rowElements = doc.select("body > div.clearfix.team-score");
 
 			for(Element row : rowElements)
 			{
