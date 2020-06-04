@@ -1,5 +1,6 @@
 package poly.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,8 +13,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import poly.dto.NewsDTO;
 import poly.dto.RankDTO;
+import poly.service.INewsService;
 import poly.service.IRankService;
+import poly.service.impl.NewsService;
 
 
 
@@ -27,19 +31,22 @@ public class ProjectController {
 
 	@Resource(name = "RankService")
 	private IRankService rankservice;
+	
+	@Resource(name = "NewsService")
+	private INewsService NewsService;
 
 	@RequestMapping(value = "project/index")
 	public String getMovieInfoFromWEB(HttpServletRequest request, HttpServletResponse response, ModelMap model)
 			throws Exception {
+		
+		List<NewsDTO> nList= NewsService.getNews();
+		
+		if (nList==null) {
+			nList = new ArrayList<NewsDTO>();
+		}
+		model.addAttribute("nList",nList);
 
-//		log.info(this.getClass().getName() + ".getMovieInfoFromWEB start!");
-//
-//		int res = movieService.getMovieInfoFromWEB();
-//
-//		//크롤링 결과를 넣어주기
-//		model.addAttribute("res", String.valueOf(res));
-//		
-//		log.info(this.getClass().getName() + ".getMovieInfoFromWEB end!");
+
 		
 		return "/project/index";
 	}

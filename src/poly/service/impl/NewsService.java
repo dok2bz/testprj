@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import poly.dto.NewsDTO;
-
+import poly.dto.RankDTO;
 import poly.persistance.mongo.INewsMapper;
 import poly.service.INewsService;
 import poly.util.DateUtil;
@@ -74,5 +74,17 @@ public class NewsService implements INewsService {
 
 	return res;
 }
+	@Override
+	public List<NewsDTO> getNews() throws Exception{
+		String colNm = "news";
+		
+		List<NewsDTO> rList = NewsMapper.getNews(colNm);
+		if(rList ==null) {
+			rList = new ArrayList<NewsDTO>();
+		}
+		
+		return rList;
+				
+	}
 
 }

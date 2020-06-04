@@ -1,5 +1,18 @@
+<%@page import="poly.util.CmmUtil"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="poly.dto.NewsDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    List<NewsDTO> nList = (List<NewsDTO>)request.getAttribute("nList");
+    
+    if (nList==null) {
+		nList = new ArrayList<NewsDTO>();
+	}  
+    
+     
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!--
 author: Boostraptheme
@@ -103,9 +116,10 @@ License URL: https://creativecommons.org/licenses/by/4.0/
     <section id="comp-offer">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3 col-sm-6  desc-comp-offer wow fadeInUp" data-wow-delay="0.2s" id="news">
+          <div class="col-md-3 col-sm-6  desc-comp-offer wow fadeInUp" data-wow-delay="0.2s" >
             <h2>Latest News</h2>
-            <div class="heading-border-light"></div> 
+            
+            <div class="heading-border-light" ></div> 
                  
                   <i class="search fa fa-search search-btn"></i>
                   <div class="search-open">
@@ -124,9 +138,11 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                   </div>
                   <img src="/theme/img/news/news-1.jpg" class="img-fluid" alt="...">
               </div>
-              <h3>Pricing Strategies for Product</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from Business box. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
+              
+          
+              <h3><%=CmmUtil.nvl(nList.get(0).getTitle())%></h3>
+           
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> <%=CmmUtil.nvl(nList.get(0).getCollect_time()) %></a>
             </div>
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.6s">
@@ -137,9 +153,8 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                   </div>
                   <img src="/theme/img/news/news-9.jpg" class="img-fluid" alt="...">
               </div>
-              <h3>Design Exhibitions of 2017</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from Business box. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
+              <h3><%=CmmUtil.nvl(nList.get(1).getTitle())%></h3>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> <%=CmmUtil.nvl(nList.get(1).getCollect_time()) %></a>
             </div>
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.8s">
@@ -150,9 +165,8 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                   </div>
                   <img src="/theme/img/news/news-12.jpeg" class="img-fluid" alt="...">
               </div>
-              <h3>Exciting New Technologies</h3>
-              <p class="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from Business box. </p>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
+              <h3><%=CmmUtil.nvl(nList.get(2).getTitle())%></h3>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> <%=CmmUtil.nvl(nList.get(2).getCollect_time()) %></a>
             </div>
           </div>
         </div>
@@ -168,12 +182,12 @@ License URL: https://creativecommons.org/licenses/by/4.0/
             </div>
 <div class="col-md-6 wow fadeInUp" data-wow-delay="0.3s">
               <div class="service-h-desc">
-                <h3>Ranking</h3>
+                <h3>Ranking & Event</h3>
                 <div class="heading-border-light"></div> 
               <div class="service-h-tab"> 
                 <nav class="nav nav-tabs" id="myTab" role="tablist">
                   <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-expanded="true">K-League 1</a>
-                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile">K-League 2</a> 
+                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" >Event</a> 
                  
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -184,9 +198,10 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
 		//페이지 로딩 완료 후, 멜론 순위가져오기 함수 실행함 
 		getRank();
+		getNews();
 	});
 
-	//멜론 순위가져오기
+
 	function getRank() {
 
 		//Ajax 호출
@@ -217,6 +232,25 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 		})
 
 	}
+	
+	function getNews(){
+		$.ajax({
+			url : "/project/getNews.do",
+			type : "post",
+			dataType : "JSON",
+			contentType : "application/json; charset=UTF-8",
+			success : function(json) {
+				
+				var news ="";
+				
+				for(var i = 0; i <json.length; i++){
+					news += (json[i].title);
+					news += (json[i].seq);
+					}
+				$('p[name=news]').html(news);
+				}
+			})
+	}
 </script>
 <script type="text/javascript">
 $(".navbar-nav ml-auto li").click(function() {
@@ -228,8 +262,8 @@ $(".navbar-nav ml-auto li").click(function() {
 })
 </script>
 </div>
-                  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <p> 2</p>
+                  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" >
+                   
                   </div> 
    
                 </div>

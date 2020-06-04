@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 
 import poly.dto.NewsDTO;
 import poly.persistance.mongo.INewsMapper;
+import poly.util.CmmUtil;
 
 @Component("NewsMapper")
 public class NewsMapper implements INewsMapper {
@@ -93,6 +95,32 @@ public class NewsMapper implements INewsMapper {
 	 * }
 	 */
 
+	@Override
+	public List<NewsDTO> getNews(String colNm) throws Exception {
+
+		DBCollection rCol = mongodb.getCollection(colNm);
+		Iterator<DBObject> cursor = rCol.find();
+		List<NewsDTO> nList = new ArrayList<NewsDTO>();
+		NewsDTO nDTO = null;
+		while(cursor.hasNext()) {
+			nDTO = new NewsDTO();
+			final DBObject current = cursor.next();
+			
+			String collect_time = CmmUtil.nvl((String) current.get("collect_time"));
+			String title = CmmUtil.nvl((String) current.get("title"));
+			String Stringseq = CmmUtil.nvl(String.valueOf(current.get("seq")));
+			int seq = Integer.parseInt(Stringseq);
+			nDTO.setCollect_time(collect_time);
+			nDTO.setTitle(title);
+			nDTO.setSeq(seq);
+			
+			nList.add(nDTO);
+			
+			nDTO= null;
+		}
+		return nList;
+	}
+	
 
 
 }
