@@ -1,6 +1,7 @@
 <%@page import="poly.util.CmmUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="poly.dto.NewsDTO"%>
+<%@page import="poly.dto.RankDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,7 +11,15 @@
     if (nList==null) {
 		nList = new ArrayList<NewsDTO>();
 	}  
+   
+    List<RankDTO> rList = (List<RankDTO>)request.getAttribute("rList");
     
+    if (rList==null) {
+		rList = new ArrayList<RankDTO>();
+	}  
+    
+     
+   
      
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -106,7 +115,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                         <span class="wrap"></span></a></span> </h1>         
                       <h3>The next big idea is waiting for its next big changer</h3>
                   </hgroup>
-                  <button class="btn btn-general btn-green wow fadeInUp" role="button"><a href="news.html" color="white">뉴스 보러가기</a></button>
+                  <button class="btn btn-general btn-green wow fadeInUp" role="button"><a href="news-list.do" color="white">뉴스 보러가기</a></button>
                 </div>           
             </div> 
         </div> 
@@ -202,7 +211,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 	});
 
 
-	function getRank() {
+	/* function getRank() {
 
 		//Ajax 호출
 		$.ajax({
@@ -231,7 +240,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 			}
 		})
 
-	}
+	} */
 	
 	function getNews(){
 		$.ajax({
@@ -261,6 +270,39 @@ $(".navbar-nav ml-auto li").click(function() {
   }, 500);
 })
 </script>
+<table class="table table-sm" style="text-align:center; width:100%;">
+	<thead>
+		<tr>
+			<td scope="col">순위</td>
+			<td scope="col">클럽명</td>
+			<td scope="col">승</td>
+			<td scope="col">무</td>
+			<td scope="col">패</td>
+			<td scope="col">승점</td>
+			<td scope="col">실점</td>
+			<td scope="col">득실</td>
+			<td scope="col">경기수</td>
+			<td scope="col">수집시간</td>
+		</tr>
+	</thead>
+	<tbody>
+		<%for(int i=0;i<rList.size();i++){ %>
+		<tr>
+			<td><%=rList.get(i).getRank()%></td>
+			<td scope="row"><%=CmmUtil.nvl(rList.get(i).getName()) %></td>
+			<td><%=rList.get(i).getWin()%></td>
+			<td><%=rList.get(i).getDraw()%></td>
+			<td><%=rList.get(i).getLose()%></td>
+			<td><%=rList.get(i).getScore()%></td>
+			<td><%=rList.get(i).getMiss()%></td>
+			<td><%=rList.get(i).getDiff()%></td>
+			<td><%=rList.get(i).getPlayNm()%></td>
+			<td><%=rList.get(i).getCollect_time()%></td>
+		</tr>
+		<%} %>		
+
+	</tbody>
+</table>
 </div>
                   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" >
                    

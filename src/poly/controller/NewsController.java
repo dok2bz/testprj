@@ -42,7 +42,7 @@ public class NewsController {
 	public List<NewsDTO> collectNews(HttpServletRequest request, HttpServletResponse response, ModelMap model)
 			throws Exception {
 		
-		log.info(this.getClass().getName()+".get rank start");
+		log.info(this.getClass().getName()+".get news start");
 		List<NewsDTO> nList= NewsService.getNews();
 		
 		return nList;

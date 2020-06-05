@@ -31,17 +31,6 @@ public class RankController {
 		
 		return "success";
 	}
-	@RequestMapping(value = "rank/collectRank2")
-	@ResponseBody
-	public String collectRank2(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
-		log.info("랭크 컨트롤러 시작");
-		
-		rankService.collectRank2();
-		
-		log.info("랭크 컨트롤러 끝");
-		
-		return "success2";
-	}
+	
 
 }

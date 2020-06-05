@@ -46,29 +46,53 @@ public class ProjectController {
 		}
 		model.addAttribute("nList",nList);
 
-
+		List<RankDTO>rList= rankservice.getRank();
+		if (rList==null) {
+			rList = new ArrayList<RankDTO>();
+		}
+		model.addAttribute("rList",rList);
 		
 		return "/project/index";
 	}
-	@RequestMapping(value = "project/test")
-	public String test(HttpServletRequest request, HttpServletResponse response, ModelMap model)
-			throws Exception {
 
-		return "/project/test";
-	}
+
 	@RequestMapping(value = "project/getRank")
 	@ResponseBody
 	public List<RankDTO> collectRank(HttpServletRequest request, HttpServletResponse response, ModelMap model)
 			throws Exception {
 		
 		log.info(this.getClass().getName()+".get rank start");
-		List<RankDTO>rList= rankservice.getRank();
-		
-
+		List<RankDTO>rList= rankservice.getRank();		
 		
 		return rList;
 	}
+	
+	@RequestMapping(value = "project/test")
+	public String test(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+			throws Exception {
+		List<RankDTO>rList= rankservice.getRank();
+		if (rList==null) {
+			rList = new ArrayList<RankDTO>();
+		}
+		model.addAttribute("rList",rList);
+		return "/project/test";
+	}
 
+	@RequestMapping(value = "project/news-list")
+	public String news(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+			throws Exception {
+		
+		List<NewsDTO> nList= NewsService.getNews();
+		
+		if (nList==null) {
+			nList = new ArrayList<NewsDTO>();
+		}
+		model.addAttribute("nList",nList);
+
+
+		
+		return "/project/news-list";
+	}
 }
 
 
