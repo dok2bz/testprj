@@ -181,6 +181,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
         </div>
       </div>
     </section>
+    <hr>
 <section id="service-h">
         <div class="container-fluid">
           <div class="row" >
