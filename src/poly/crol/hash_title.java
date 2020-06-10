@@ -1,28 +1,28 @@
-package poly.crol;
-
-import java.security.MessageDigest;
-
-public class hash_title 
-{
-	String hash_start(String str)
-	{
-		String SHA="";
-		try 
-		{
-			MessageDigest sh = MessageDigest.getInstance("SHA-256");
-			sh.update(str.getBytes());
-			byte byteData[] = sh.digest();
-			StringBuffer sb = new StringBuffer();
-			for(int i=0;i<byteData.length; i++)
-			{
-				sb.append(Integer.toString((byteData[i]&0xff)+0x100, 16).substring(1));
-			}
-			SHA = sb.toString();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return SHA;
-	}
-}
+/*
+ * package poly.crol;
+ * 
+ * import java.security.MessageDigest;
+ * 
+ * import org.jsoup.Jsoup; import org.jsoup.nodes.Document; import
+ * org.jsoup.nodes.Element; import org.jsoup.select.Elements;
+ * 
+ * import poly.dto.NewsDTO; import poly.util.DateUtil;
+ * 
+ * public class hash_title extends thread_jsoup { String String
+ * url="https://sports.news.naver.com/kfootball/news/index.nhn?isphoto=N";
+ * 
+ * // JSOUP 라이브러리를 통해 사이트 접속되면, 그 사이트의 전체 HTML소스 저장할 변수 Document doc = null; //
+ * 
+ * doc=Jsoup.connect(url).get();
+ * 
+ * Elements head = doc.select("a.title span");
+ * 
+ * for( int i = 0;i<10;i++) { Element item = head.get(i);
+ * System.out.println(item.text());
+ * 
+ * NewsDTO pDTO = new NewsDTO();
+ * pDTO.setCollect_time(DateUtil.getDateTime("yyyyMMddhhmmss")); int seq = i +
+ * 1; pDTO.setSeq(seq); pDTO.setTitle(item.text()); }
+ * 
+ * }
+ */

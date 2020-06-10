@@ -52,6 +52,10 @@ public class ProjectController {
 		}
 		model.addAttribute("rList",rList);
 		
+		ArrayList<String> iList = NewsService.getImg(nList);
+		
+		model.addAttribute("iList",iList);
+		
 		return "/project/index";
 	}
 

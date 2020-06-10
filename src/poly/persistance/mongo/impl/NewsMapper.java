@@ -109,10 +109,12 @@ public class NewsMapper implements INewsMapper {
 			String collect_time = CmmUtil.nvl((String) current.get("collect_time"));
 			String title = CmmUtil.nvl((String) current.get("title"));
 			String Stringseq = CmmUtil.nvl(String.valueOf(current.get("seq")));
+			String img = CmmUtil.nvl((String) current.get("img"));
 			int seq = Integer.parseInt(Stringseq);
 			nDTO.setCollect_time(collect_time);
 			nDTO.setTitle(title);
 			nDTO.setSeq(seq);
+			nDTO.setImg(img);
 			
 			nList.add(nDTO);
 			

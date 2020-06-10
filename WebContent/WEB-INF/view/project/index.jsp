@@ -16,10 +16,13 @@
     
     if (rList==null) {
 		rList = new ArrayList<RankDTO>();
-	}  
+	} 
     
-     
-   
+	List<String> iList = (List<String>)request.getAttribute("iList");
+    
+    if (iList==null) {
+		iList = new ArrayList<String>();
+	} 
      
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -140,42 +143,47 @@ License URL: https://creativecommons.org/licenses/by/4.0/
           
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
-            <div class="desc-comp-offer-cont">
+            <div class="desc-comp-offer-cont" >
               <div class="thumbnail-blogs">
-                  <div class="caption">
+                  <div class="">
                     <i class="fa fa-chain"></i>
-                  </div>
-                  <img src="/theme/img/news/news-1.jpg" class="img-fluid" alt="...">
+                  </div><a href ="<%=CmmUtil.nvl(nList.get(0).getImg())%>" target="_blank" style="color:black;" >
+                  <img src="<%=CmmUtil.nvl(iList.get(0)) %>" class="img-fluid" alt="..." style="width:500px;height:350px;">
+                  </a>
               </div>
               
           
-              <h3><%=CmmUtil.nvl(nList.get(0).getTitle())%></h3>
+              <h3><a href ="<%=CmmUtil.nvl(nList.get(0).getImg())%>" target="_blank" style="color:black;" ><%=CmmUtil.nvl(nList.get(0).getTitle())%></a></h3>
            
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> <%=CmmUtil.nvl(nList.get(0).getCollect_time()) %></a>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> </a>
             </div>
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.6s">
             <div class="desc-comp-offer-cont">
               <div class="thumbnail-blogs">
-                  <div class="caption">
+                  <div class="">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src="/theme/img/news/news-9.jpg" class="img-fluid" alt="...">
+                  <a href ="<%=CmmUtil.nvl(nList.get(1).getImg())%>" target="_blank" style="color:black;" >
+                  <img src="<%=CmmUtil.nvl(iList.get(1)) %>" class="img-fluid" alt="..." style="width:500px;height:350px;">
+                  </a>
               </div>
-              <h3><%=CmmUtil.nvl(nList.get(1).getTitle())%></h3>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> <%=CmmUtil.nvl(nList.get(1).getCollect_time()) %></a>
+              <h3><a href ="<%=CmmUtil.nvl(nList.get(1).getImg())%>" target="_blank" style="color:black;" ><%=CmmUtil.nvl(nList.get(1).getTitle())%></a></h3>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> </a>
             </div>
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.8s">
             <div class="desc-comp-offer-cont">
               <div class="thumbnail-blogs">
-                  <div class="caption">
+                  <div class="">
                     <i class="fa fa-chain"></i>
                   </div>
-                  <img src="/theme/img/news/news-12.jpeg" class="img-fluid" alt="...">
+                  <a href ="<%=CmmUtil.nvl(nList.get(2).getImg())%>" target="_blank" style="color:black;" >
+                  <img src="<%=CmmUtil.nvl(iList.get(2)) %>" class="img-fluid" alt="..." style="width:500px;height:350px;">
+                  </a>
               </div>
-              <h3><%=CmmUtil.nvl(nList.get(2).getTitle())%></h3>
-              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> <%=CmmUtil.nvl(nList.get(2).getCollect_time()) %></a>
+              <h3><a href ="<%=CmmUtil.nvl(nList.get(2).getImg())%>" target="_blank" style="color:black;" ><%=CmmUtil.nvl(nList.get(2).getTitle())%></a></h3>
+              <a href="#"><i class="fa fa-arrow-circle-o-right"></i> </a>
             </div>
           </div>
         </div>
@@ -283,7 +291,7 @@ $(".navbar-nav ml-auto li").click(function() {
 			<td scope="col">실점</td>
 			<td scope="col">득실</td>
 			<td scope="col">경기수</td>
-			<td scope="col">수집시간</td>
+			<!-- <td scope="col">수집시간</td> -->
 		</tr>
 	</thead>
 	<tbody>
@@ -298,7 +306,7 @@ $(".navbar-nav ml-auto li").click(function() {
 			<td><%=rList.get(i).getMiss()%></td>
 			<td><%=rList.get(i).getDiff()%></td>
 			<td><%=rList.get(i).getPlayNm()%></td>
-			<td><%=rList.get(i).getCollect_time()%></td>
+			<%-- <td><%=rList.get(i).getCollect_time()%></td> --%>
 		</tr>
 		<%} %>		
 

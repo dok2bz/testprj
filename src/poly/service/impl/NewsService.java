@@ -46,45 +46,91 @@ public class NewsService implements INewsService {
 		doc = Jsoup.connect(url).get();
 
 		Elements head = doc.select("a.title span");
+		Elements url2 = doc.select("a.title");
+		String Rurl = "https://sports.news.naver.com/";
 
 		for (int i = 0; i < 10; i++) {
-	         Element item = head.get(i);
-	         System.out.println(item.text());
+			Element item = head.get(i);
+			Element urll = url2.get(i);
+			System.out.println(item.text());
 
-	         NewsDTO pDTO = new NewsDTO();
-	         pDTO.setCollect_time(DateUtil.getDateTime("yyyyMMddhhmmss"));
-	         int seq = i + 1;
-	         pDTO.setSeq(seq);
-	         pDTO.setTitle(item.text());
+			NewsDTO pDTO = new NewsDTO();
+			pDTO.setCollect_time(DateUtil.getDateTime("yyyyMMddhhmmss"));
+			int seq = i + 1;
+			pDTO.setSeq(seq);
+			pDTO.setTitle(item.text());
+			pDTO.setImg(Rurl + urll.getElementsByAttribute("href").attr("href").substring(11).replace("/read.", "."));
 
-	         pList.add(pDTO);
+			pList.add(pDTO);
 
-	      }
-					
-
-	String colNm = "news"; // 생성할 컬렉션명
-	// MongoDB Collection 생성하기
-	NewsMapper.createCollection(colNm);
-
-	// MongoDB에 데이터저장하기
-	NewsMapper.insertNews(pList,colNm);
-
-	// 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
-	log.info(this.getClass().getName()+".collectnews End!");
-
-	return res;
-}
-	@Override
-	public List<NewsDTO> getNews() throws Exception{
-		String colNm = "news";
-		
-		List<NewsDTO> rList = NewsMapper.getNews(colNm);
-		if(rList ==null) {
-			rList = new ArrayList<NewsDTO>();
 		}
-		
-		return rList;
+
+		String colNm = "news"; // 생성할 컬렉션명
+		// MongoDB Collection 생성하기
+		NewsMapper.createCollection(colNm);
+
+		// MongoDB에 데이터저장하기
+		NewsMapper.insertNews(pList, colNm);
+
+		// 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
+		log.info(this.getClass().getName() + ".collectnews End!");
+
+		return res;
+	}
+
+	@Override
+	public List<NewsDTO> getNews() throws Exception {
+		String colNm = "news";
+
+		List<NewsDTO> nList = NewsMapper.getNews(colNm);
+		if (nList == null) {
+			nList = new ArrayList<NewsDTO>();
+		}
+
+		ArrayList<String> iList = new ArrayList<String>();
+
+		for (int i = 0; i < 3; i++) {
+			String imgUrl = nList.get(i).getImg();
+
+			iList.add(imgUrl);
+		}
+
+		return nList;
+
+	}
+
+	@Override
+	public ArrayList<String> getImg(List<NewsDTO> nList) throws Exception {
+
+		ArrayList<String> iList = new ArrayList<String>();
+
+		for (int i = 0; i < 3; i++) {
+			String imgUrl = nList.get(i).getImg();
+
+			try {
+
+				String url = imgUrl;
+
+				Document doc = Jsoup.connect(url).header("Accept", "text/html, application/xhtml+xml,*/*")
+						.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
+						.header("Accept-Encoding", "gzip,delate").header("Accept-Language", "ko")
+						.header("Connection", "Keep-Alive").get();
+
+				Elements img = doc.select("div.news_end span img");
+
+				String imgSrc = img.get(0).attr("src");
+
+				System.out.println(imgSrc);
 				
+				iList.add(imgSrc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return iList;
+
 	}
 
 }
