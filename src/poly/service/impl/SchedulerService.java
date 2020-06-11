@@ -1,5 +1,7 @@
 package poly.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -7,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import poly.dto.NewsDTO;
 import poly.service.INewsService;
 import poly.service.IRankService;
 import poly.service.ISchedulerService;
@@ -29,6 +32,7 @@ public class SchedulerService implements ISchedulerService {
 	public void sTest() throws Exception {
 		rankService.collectRank();
 		newsService.collectNews();
+		
 		log.info(this.getClass().getName()+" 크롤링 스케쥴러 작동");
 		System.out.println("###############");
 		

@@ -14,6 +14,7 @@ public class RankDTO {
 		private int diff; // 득실
 		private String collect_time; //수집시간
 		
+		
 		public int getRank() {
 			return rank;
 		}

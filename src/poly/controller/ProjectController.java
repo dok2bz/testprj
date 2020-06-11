@@ -52,6 +52,10 @@ public class ProjectController {
 		}
 		model.addAttribute("rList",rList);
 		
+		List<String> sList = rankservice.getEvent();
+		
+		model.addAttribute("sList",sList);
+		
 		ArrayList<String> iList = NewsService.getImg(nList);
 		
 		model.addAttribute("iList",iList);

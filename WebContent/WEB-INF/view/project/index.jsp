@@ -23,6 +23,12 @@
     if (iList==null) {
 		iList = new ArrayList<String>();
 	} 
+    
+    List<String> sList = (List<String>)request.getAttribute("sList");
+    
+    if (sList==null) {
+		sList = new ArrayList<String>();
+	}
      
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -314,6 +320,40 @@ $(".navbar-nav ml-auto li").click(function() {
 </table>
 </div>
                   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" >
+                  <table class="table table-sm" style="text-align:left; width:50%;float:left;">
+	
+		<tr>
+			<td scope="col">경기 일정 / 중계</td>
+			
+		</tr>
+	
+	<tbody>
+		<%for(int i=0;i<sList.size()/2;i++){ %>
+		<tr>
+			<td><%=sList.get(i)%></td>
+			
+		</tr>
+		<%} %>		
+
+	</tbody>
+</table>
+<table class="table table-sm" style="text-align:left; width:50%;">
+	
+		<tr>
+			<td scope="col">경기 일정 / 중계</td>
+			
+		</tr>
+	
+	<tbody>
+		<%for(int i=sList.size()/2;i<sList.size();i++){ %>
+		<tr>
+			<td><%=sList.get(i)%></td>
+			
+		</tr>
+		<%} %>		
+
+	</tbody>
+</table>
                    
                   </div> 
    

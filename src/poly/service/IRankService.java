@@ -10,5 +10,7 @@ public interface IRankService {
 
 	List<RankDTO> getRank() throws Exception;
 
+	public List<String> getEvent() throws Exception;
+
 
 }
