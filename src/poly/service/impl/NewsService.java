@@ -73,7 +73,7 @@ public class NewsService implements INewsService {
 		NewsMapper.insertNews(pList, colNm);
 
 		// 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
-		log.info(this.getClass().getName() + ".collectnews End!");
+		log.info(this.getClass().getName() + ".collectnews End!!!");
 
 		return res;
 	}
@@ -111,6 +111,7 @@ public class NewsService implements INewsService {
 
 				String url = imgUrl;
 
+				
 				Document doc = Jsoup.connect(url).header("Accept", "text/html, application/xhtml+xml,*/*")
 						.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
 						.header("Accept-Encoding", "gzip,delate").header("Accept-Language", "ko")

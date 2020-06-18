@@ -1,10 +1,13 @@
-<!--
-author: Boostraptheme
-author URL: https://boostraptheme.com
-License: Creative Commons Attribution 4.0 Unported
-License URL: https://creativecommons.org/licenses/by/4.0/
--->
-
+<%@page import="poly.dto.NewsDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+ List<NewsDTO> nList = (List<NewsDTO>)request.getAttribute("nList");
+    
+    if (nList==null) {
+		nList = new ArrayList<NewsDTO>();
+	}  
+   
 <!DOCTYPE html>
 <html lang="en">
 
