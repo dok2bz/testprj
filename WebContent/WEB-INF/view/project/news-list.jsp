@@ -1,13 +1,13 @@
 <%@page import="poly.dto.NewsDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+   
  List<NewsDTO> nList = (List<NewsDTO>)request.getAttribute("nList");
     
     if (nList==null) {
 		nList = new ArrayList<NewsDTO>();
 	}  
-   
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,24 +73,8 @@
                     <div class="topmenu ">
                       <div class="container">
                         <div class="row">
-                          <div class="col-md-9">
-                            <ul class="list-inline top-contacts">
-                              <li>
-                                <i class="fa fa-envelope"></i> Email: <a href="mailto:info@htmlstream.com">info@htmlstream.com</a>
-                              </li>
-                              <li>
-                                <i class="fa fa-phone"></i> Hotline: (1) 396 4587 99
-                              </li>
-                            </ul>
-                          </div> 
-                          <div class="col-md-3">
-                            <ul class="list-inline top-data">
-                              <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
-                              <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
-                              <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
-                              <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Login</a></li>  
-                            </ul>
-                          </div>
+
+
                         </div>
                       </div>
                     </div> 
@@ -105,63 +89,7 @@
 <!--====================================================
                     LOGIN OR REGISTER
 ======================================================-->
-    <section id="login">
-      <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header" align="center">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span class="fa fa-times" aria-hidden="true"></span>
-                      </button>
-                  </div>
-                  <div id="div-forms">
-                      <form id="login-form">
-                          <h3 class="text-center">Login</h3>
-                          <div class="modal-body">
-                              <label for="username">Username</label> 
-                              <input id="login_username" class="form-control" type="text" placeholder="Enter username " required>
-                              <label for="username">Password</label> 
-                              <input id="login_password" class="form-control" type="password" placeholder="Enter password" required>
-                              <div class="checkbox">
-                                  <label>
-                                      <input type="checkbox"> Remember me
-                                  </label>
-                              </div>
-                          </div>
-                          <div class="modal-footer text-center">
-                              <div>
-                                  <button type="submit" class="btn btn-general btn-white">Login</button>
-                              </div>
-                              <div>
-                                  <button id="login_register_btn" type="button" class="btn btn-link">Register</button>
-                              </div>
-                          </div>
-                      </form>
-                      <form id="register-form" style="display:none;">
-                          <h3 class="text-center">Register</h3>
-                          <div class="modal-body"> 
-                              <label for="username">Username</label> 
-                              <input id="register_username" class="form-control" type="text" placeholder="Enter username" required>
-                              <label for="register_email">E-mailId</label> 
-                              <input id="register_email" class="form-control" type="text" placeholder="Enter eMail" required>
-                              <label for="register_password">Password</label> 
-                              <input id="register_password" class="form-control" type="password" placeholder="Password" required>
-                          </div>
-                          <div class="modal-footer">
-                              <div>
-                                  <button type="submit" class="btn btn-general btn-white">Register</button>
-                              </div>
-                              <div>
-                                  <button id="register_login_btn" type="button" class="btn btn-link">Log In</button>
-                              </div>
-                          </div>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </section>      
- 
+   
 <!--====================================================
                        HOME-P
 ======================================================-->
@@ -178,134 +106,69 @@
     <section id="single-news-p1" class="single-news-p1">
       <div class="container">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-10">
             <div class="single-news-p1-cont" style="margin-bottom: 30px; box-shadow: 1px 1px 1px rgba(0,0,0,0.1);">
-              <div class="single-news-img">
-                <img src="theme/img/news/news-box-1.jpg" alt="" class="img-fluid">
-              </div>
-              <div class="single-news-desc m-0 pt-1 pb-0 px-0">
-                <h3>Reduction of AC energy wastage through clamp meter</h3>
-                <ul class="list-inline">
-                  <li>Posted: <span class="text-theme-colored2"> 9/9/2018</span></li>
-                  <li>By: <span class="text-theme-colored2">Admin</span></li>
-                  <li><i class="fa fa-comments-o"></i> 1 comments</li>
-                </ul>
-                <hr>
-                <div class="bg-light-gray">
-                  <p>Clamp meter connected to an AC monitors the current flow and indicates usage (range) through green, orange and red colour codes. The four friends had learnt about capacitor and its use in many electronic appliances in their physics class. Ageing of these, leads to lesser efficiency of the appliance. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> 
-                  <a href="#" class="mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                </div> 
-              </div>
-            </div>
-            <div class="single-news-p1-cont" style="margin-bottom: 30px; box-shadow: 1px 1px 1px rgba(0,0,0,0.1);">
-              <div class="single-news-img">
-                <img src="theme/img/news/news-box-2.jpg" alt="" class="img-fluid">
-              </div>
-              <div class="single-news-desc m-0 pt-1 pb-0 px-0">
-                <h3>Reduction of AC energy wastage through clamp meter</h3>
-                <ul class="list-inline">
-                  <li>Posted: <span class="text-theme-colored2"> 9/9/2018</span></li>
-                  <li>By: <span class="text-theme-colored2">Admin</span></li>
-                  <li><i class="fa fa-comments-o"></i> 1 comments</li>
-                </ul>
-                <hr>
-                <div class="bg-light-gray">
-                  <p>Clamp meter connected to an AC monitors the current flow and indicates usage (range) through green, orange and red colour codes. The four friends had learnt about capacitor and its use in many electronic appliances in their physics class. Ageing of these, leads to lesser efficiency of the appliance. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> 
-                  <a href="#" class="mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                </div> 
-              </div>
-            </div>
-            <div class="single-news-p1-cont" style="margin-bottom: 30px; box-shadow: 1px 1px 1px rgba(0,0,0,0.1);">
-              <div class="single-news-img">
-                <img src="theme/img/news/news-box-3.jpg" alt="" class="img-fluid">
-              </div>
-              <div class="single-news-desc m-0 pt-1 pb-0 px-0">
-                <h3>Reduction of AC energy wastage through clamp meter</h3>
-                <ul class="list-inline">
-                  <li>Posted: <span class="text-theme-colored2"> 9/9/2018</span></li>
-                  <li>By: <span class="text-theme-colored2">Admin</span></li>
-                  <li><i class="fa fa-comments-o"></i> 1 comments</li>
-                </ul>
-                <hr>
-                <div class="bg-light-gray">
-                  <p>Clamp meter connected to an AC monitors the current flow and indicates usage (range) through green, orange and red colour codes. The four friends had learnt about capacitor and its use in many electronic appliances in their physics class. Ageing of these, leads to lesser efficiency of the appliance. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> 
-                  <a href="#" class="mb-2">Read More <i class="fa fa-long-arrow-right"></i></a>
-                </div> 
-              </div>
-            </div>  
-          </div>
-          <div class="col-md-4">
-            <div class="small-news-box">
-              <a href="">
-                <div class="right-side-sn-cont">
-                  <img src="theme/img/news/news-6.jpg" alt="" class="img-fluid">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  <small><fa class="fa-watch"> Jan 1, 2019</fa></small>
-                </div>
-              </a>
-              <a href="">
-                <div class="right-side-sn-cont">
-                  <img src="theme/img/news/news-9.jpg" alt="" class="img-fluid">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  <small><fa class="fa-watch"> Jan 1, 2019</fa></small>
-                </div>
-              </a>
-              <a href="">
-                <div class="right-side-sn-cont">
-                  <img src="theme/img/news/news-7.jpg" alt="" class="img-fluid">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  <small><fa class="fa-watch"> Jan 1, 2019</fa></small>
-                </div>
-              </a>
-              <a href="">
-                <div class="right-side-sn-cont">
-                  <img src="theme/img/news/news-3.jpg" alt="" class="img-fluid">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  <small><fa class="fa-watch"> Jan 1, 2019</fa></small>
-                </div>
-              </a>
-            </div>
-            <div class="ad-box-sn"> 
-              <h3 style="color:#777;" class="pb-2">Current News</h3>
-              <div class="card">
-                <div class="desc-comp-offer-cont">
-                <div class="thumbnail-blogs">
-                    <div class="caption">
-                      <i class="fa fa-chain"></i>
-                    </div>
-                    <img src="theme/img/news/news-8.jpg" class="img-fluid" alt="...">
-                </div>
-                <h3>Reduction of AC energy</h3>
-                <p class="desc">Clamp meter connected to an AC monitors the current flow and indicates usage (range) through green, orange and red colour codes.</p>
-                <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-                </div>
-              </div>
-              <div class="card">
-                <div class="desc-comp-offer-cont">
-                <div class="thumbnail-blogs">
-                    <div class="caption">
-                      <i class="fa fa-chain"></i>
-                    </div>
-                    <img src="theme/img/news/news-9.jpg" class="img-fluid" alt="...">
-                </div>
-                <h3>Hilly terrain cart</h3>
-                <p class="desc">Three equidistant wheels on a single axle attached to two similar sets in different planes, allowing flexibility in movement with respect to each other. </p>
-                <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-                </div>
-              </div>
-              <div class="card">
-                <div class="desc-comp-offer-cont">
-                <div class="thumbnail-blogs">
-                    <div class="caption">
-                      <i class="fa fa-chain"></i>
-                    </div>
-                    <img src="theme/img/news/news-11.jpg" class="img-fluid" alt="...">
-                </div>
-                <h3>Indicator for dead landline phones</h3>
-                <p class="desc">Contrary to popular </p>
-                <a href="#"><i class="fa fa-arrow-circle-o-right"></i> Learn More</a>
-                </div>
-              </div>
+             <table class="table" style="width:100%;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
             </div>
           </div> 
         </div>
@@ -316,74 +179,7 @@
 <!--====================================================
                       FOOTER
 ======================================================--> 
-    <footer> 
-        <div id="footer-s1" class="footer-s1">
-          <div class="footer">
-            <div class="container">
-              <div class="row">
-                <!-- About Us -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div><img src="theme/img/logo-w.png" alt="" class="img-fluid"></div>
-                  <ul class="list-unstyled comp-desc-f">
-                     <li><p>Businessbox is a corporate business theme. You can customize what ever you think to make your website much better from your great ideas. </p></li> 
-                  </ul><br> 
-                </div>
-                <!-- End About Us -->
-
-                <!-- Recent News -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Useful Links</h2></div>
-                  <ul class="list-unstyled link-list">
-                    <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="faq.html">FAQ</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
-                  </ul>
-                </div>
-                <!-- End Recent list -->
-
-                <!-- Recent Blog Entries -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Recent Post Entries</h2></div>
-                  <ul class="list-unstyled thumb-list">
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Praesent ut consectetur diam.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Maecenas pharetra tellus et fringilla.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <!-- End Recent Blog Entries -->
-
-                <!-- Latest Tweets -->
-                <div class="col-md-3 col-sm-6">
-                  <div class="heading-footer"><h2>Get In Touch</h2></div>
-                  <address class="address-details-f">
-                    25, Dist town Street, Logn <br>
-                    California, US <br>
-                    Phone: 800 123 3456 <br>
-                    Fax: 800 123 3456 <br>
-                    Email: <a href="mailto:info@Businessbox.com" class="">info@Businessbox.com</a>
-                  </address>  
-                  <ul class="list-inline social-icon-f top-data">
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-facebook"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-twitter"></i></a></li>
-                    <li><a href="#" target="_empty"><i class="fa top-social fa-google-plus"></i></a></li> 
-                  </ul>
-                </div>
-                <!-- End Latest Tweets -->
-              </div>
-            </div><!--/container -->
-          </div> 
-        </div>
+    <footer>
 
         <div id="footer-bottom">
             <div class="container">
