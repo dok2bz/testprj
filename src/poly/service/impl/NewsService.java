@@ -12,8 +12,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import poly.dto.NewsAllDTO;
 import poly.dto.NewsDTO;
-import poly.dto.RankDTO;
 import poly.persistance.mongo.INewsMapper;
 import poly.service.INewsService;
 import poly.util.DateUtil;
@@ -66,11 +66,64 @@ public class NewsService implements INewsService {
 		}
 
 		String colNm = "news"; // 생성할 컬렉션명
+		
+		String colNm2 = "newsAll";
+		
+		
 		// MongoDB Collection 생성하기
 		NewsMapper.createCollection(colNm);
+		
+		NewsMapper.createCollection(colNm2);
+		
 
 		// MongoDB에 데이터저장하기
 		NewsMapper.insertNews(pList, colNm);
+		
+		List<NewsAllDTO> nList = NewsMapper.getNewsAll(colNm2);
+		if (nList == null) {
+			nList = new ArrayList<NewsAllDTO>();
+		}
+		
+		int nSize = nList.size();
+		
+		if(nSize == 0) {
+			NewsMapper.insertNews(pList, colNm2);
+		}else {
+			
+			ArrayList<String> titleAll = new ArrayList<>();
+			
+			for(int i=0;i<nSize;i++) {
+				
+				titleAll.add(nList.get(i).getTitle());
+			}
+			
+			
+			
+			List<NewsAllDTO> naList = new ArrayList<>();
+			
+			NewsAllDTO naDTO = new NewsAllDTO();
+			
+			for(int a=0;a<nList.size();a++) {
+				String title = nList.get(a).getTitle();
+				if(titleAll.contains(title)) {
+					continue;
+				}else {
+					naDTO.setCollect_time(nList.get(a).getCollect_time());
+					naDTO.setSeq(nList.get(a).getSeq());
+					naDTO.setTitle(nList.get(a).getTitle());
+					naDTO.setImg(nList.get(a).getImg());
+					
+					naList.add(naDTO);
+				}
+				
+			}
+			
+			// MongoDB에 데이터저장하기
+			NewsMapper.insertNewsAll(naList, colNm2);
+			
+		}
+		
+		
 
 		// 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
 		log.info(this.getClass().getName() + ".collectnews End!!!");
@@ -98,6 +151,20 @@ public class NewsService implements INewsService {
 		return nList;
 
 	}
+	
+	@Override
+	public List<NewsAllDTO> getNewsAll() throws Exception {
+		String colNm2 = "newsAll";
+
+		List<NewsAllDTO> naList = NewsMapper.getNewsAll(colNm2);
+		if (naList == null) {
+			naList = new ArrayList<NewsAllDTO>();
+		}
+
+		return naList;
+
+	}
+	
 
 	@Override
 	public ArrayList<String> getImg(List<NewsDTO> nList) throws Exception {
@@ -132,6 +199,27 @@ public class NewsService implements INewsService {
 
 		return iList;
 
+	}
+
+	@Override
+	public List<NewsAllDTO> selectNews(String keyword) throws Exception {
+		
+		int res = 0;
+	
+		
+		
+
+		List<NewsAllDTO> nList = NewsMapper.selectNewsAll(keyword);
+		if (nList == null) {
+			nList = new ArrayList<NewsAllDTO>();
+		}
+		
+		if(nList.size()!=0) {
+			res = 1;
+		}
+		
+		
+		return nList;
 	}
 
 }

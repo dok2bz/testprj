@@ -13,6 +13,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
+import poly.dto.NewsAllDTO;
 import poly.dto.NewsDTO;
 import poly.persistance.mongo.INewsMapper;
 import poly.util.CmmUtil;
@@ -79,6 +80,37 @@ public class NewsMapper implements INewsMapper {
 		return res;
 
 	}
+	
+	@Override
+	public int insertNewsAll(List<NewsAllDTO> naList, String colNm2) throws Exception {
+		log.info(this.getClass().getName() + ".insertNews Start!");
+
+		int res = 0;
+
+		if (naList == null) {
+			naList = new ArrayList<NewsAllDTO>();
+		}
+
+		Iterator<NewsAllDTO> it = naList.iterator();
+
+		while (it.hasNext()) {
+			NewsAllDTO naDTO = (NewsAllDTO) it.next();
+
+			if (naDTO == null) {
+				naDTO = new NewsAllDTO();
+			}
+
+			mongodb.insert(naDTO, colNm2);
+
+		}
+
+		res = 1;
+
+		log.info(this.getClass().getName() + ".insertNews End!");
+
+		return res;
+
+	}
 	/*
 	 * @Override public List<RankDTO> getRank(String colNm) throws Exception{
 	 * 
@@ -104,6 +136,70 @@ public class NewsMapper implements INewsMapper {
 		NewsDTO nDTO = null;
 		while(cursor.hasNext()) {
 			nDTO = new NewsDTO();
+			final DBObject current = cursor.next();
+			
+			String collect_time = CmmUtil.nvl((String) current.get("collect_time"));
+			String title = CmmUtil.nvl((String) current.get("title"));
+			String Stringseq = CmmUtil.nvl(String.valueOf(current.get("seq")));
+			String img = CmmUtil.nvl((String) current.get("img"));
+			int seq = Integer.parseInt(Stringseq);
+			nDTO.setCollect_time(collect_time);
+			nDTO.setTitle(title);
+			nDTO.setSeq(seq);
+			nDTO.setImg(img);
+			
+			nList.add(nDTO);
+			
+			nDTO= null;
+		}
+		return nList;
+	}
+	
+	@Override
+	public List<NewsAllDTO> getNewsAll(String colNm2) throws Exception {
+
+		DBCollection rCol = mongodb.getCollection(colNm2);
+		Iterator<DBObject> cursor = rCol.find();
+		List<NewsAllDTO> AList = new ArrayList<NewsAllDTO>();
+		NewsAllDTO nDTO = null;
+		while(cursor.hasNext()) {
+			nDTO = new NewsAllDTO();
+			final DBObject current = cursor.next();
+			
+			String collect_time = CmmUtil.nvl((String) current.get("collect_time"));
+			String title = CmmUtil.nvl((String) current.get("title"));
+			String Stringseq = CmmUtil.nvl(String.valueOf(current.get("seq")));
+			String img = CmmUtil.nvl((String) current.get("img"));
+			int seq = Integer.parseInt(Stringseq);
+			nDTO.setCollect_time(collect_time);
+			nDTO.setTitle(title);
+			nDTO.setSeq(seq);
+			nDTO.setImg(img);
+			
+			AList.add(nDTO);
+			
+			nDTO= null;
+		}
+		return AList;
+	}
+
+	@Override
+	public List<NewsAllDTO> selectNewsAll(String keyword) throws Exception {
+		
+		String colNm = "newsAll";
+		DBCollection rCol = mongodb.getCollection(colNm);
+		if (keyword == ""){
+            keyword = null;
+        }
+
+        BasicDBObject query = new BasicDBObject();
+        query.put("title", new BasicDBObject("$regex", keyword+".*"));
+
+        Iterator<DBObject> cursor = rCol.find(query);
+		List<NewsAllDTO> nList = new ArrayList<NewsAllDTO>();
+		NewsAllDTO nDTO = null;
+		while(cursor.hasNext()) {
+			nDTO = new NewsAllDTO();
 			final DBObject current = cursor.next();
 			
 			String collect_time = CmmUtil.nvl((String) current.get("collect_time"));

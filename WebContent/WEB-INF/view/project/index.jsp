@@ -119,7 +119,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
               <div class="overlay"></div>
               <div class="slide-1"></div>
                 <div class="hero ">
-                  <hgroup class="wow fadeInUp">
+                  <hgroup class="">
                       <h1>K리그 <span ><a href="" class="typewrite" data-period="2000" data-type='[ " 두둥등장" ]'>
                         <span class="wrap"></span></a></span> </h1>         
                       <h3>The next big idea is waiting for its next big changer</h3>
@@ -138,15 +138,9 @@ License URL: https://creativecommons.org/licenses/by/4.0/
             <h2>Latest News</h2>
             
             <div class="heading-border-light" ></div> 
-                 
-                  <i class="search fa fa-search search-btn"></i>
-                  <div class="search-open">
-                    <div class="input-group animated fadeInUp">
-                      <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Go</span>
-                    </div>
-                  </div>
-          
+
+
+    
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
             <div class="desc-comp-offer-cont" >
@@ -364,65 +358,8 @@ $(".navbar-nav ml-auto li").click(function() {
           </div>
         </div>  
     </section>
-    <footer> 
-        <div id="footer-s1" class="footer-s1">
-          <div class="footer">
-            <div class="container">
-              <div class="row">
-                <!-- About Us -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div><img src="/theme/img/logo-w.png" alt="" class="img-fluid"></div>
-                  <ul class="list-unstyled comp-desc-f">
-                     <li><p>Businessbox is a corporate business theme. You can customize what ever you think to make your website much better from your great ideas. </p></li> 
-                  </ul><br> 
-                </div>
-                <!-- End About Us -->
+   
 
-                <!-- Recent News -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Useful Links</h2></div>
-                  <ul class="list-unstyled link-list">
-                    <li><a href="about.html">About us</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="project.html">Project</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="careers.html">Career</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="faq.html">FAQ</a><i class="fa fa-angle-right"></i></li> 
-                    <li><a href="contact.html">Contact us</a><i class="fa fa-angle-right"></i></li> 
-                  </ul>
-                </div>
-                <!-- End Recent list -->
-
-                <!-- Recent Blog Entries -->
-                <div class="col-md-3 col-sm-6 ">
-                  <div class="heading-footer"><h2>Recent Post Entries</h2></div>
-                  <ul class="list-unstyled thumb-list">
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Praesent ut consectetur diam.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="overflow-h">
-                        <a href="#">Maecenas pharetra tellus et fringilla.</a>
-                        <small>02 OCT, 2017</small>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <!-- End Recent Blog Entries -->
-
-                <!-- Latest Tweets -->
-                <div class="col-md-3 col-sm-6">
-                  <div class="heading-footer"><h2>Get In Touch</h2></div>
-                  <address class="address-details-f">
-                    25, Dist town Street, Logn <br>
-                    California, US <br>
-                    Phone: 800 123 3456 <br>
-                    Fax: 800 123 3456 <br>
-                    Email: <a href="mailto:info@Businessbox.com" class="">info@Businessbox.com</a>
-                  </address>  
-
-                </div>
                 <!-- End Latest Tweets -->
               </div>
             </div><!--/container -->

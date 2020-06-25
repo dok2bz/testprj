@@ -1,13 +1,22 @@
-<%@page import="poly.dto.NewsDTO"%>
+<%@page import="poly.util.CmmUtil"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="poly.dto.NewsAllDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
- List<NewsDTO> nList = (List<NewsDTO>)request.getAttribute("nList");
+        <%
+    List<NewsAllDTO> naList = (List<NewsAllDTO>)request.getAttribute("naList");
+    
+    if (naList==null) {
+		naList = new ArrayList<NewsAllDTO>();
+	}  
+   List<NewsAllDTO> nList = (List<NewsAllDTO>)request.getAttribute("nList");
     
     if (nList==null) {
-		nList = new ArrayList<NewsDTO>();
+		nList = new ArrayList<NewsAllDTO>();
 	}  
-
+    
+    %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +29,7 @@
 
     <title>Business Bootstrap Responsive Template</title>
     <link rel="shortcut icon" href="theme/img/favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- Global Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -50,12 +60,9 @@
         <div class="container">
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li  data-target="#home"><a class="nav-link smooth-scroll" href="index.do">Home</a></li>
-                <li  data-target="#comp-offer"><a class="nav-link smooth-scroll" href="#comp-offer">News</a></li> 
-                <li  data-target="#service"><a class="nav-link smooth-scroll" href="#service-h">Ranking</a></li> 
-                      <div class="col-md-7 mega-menu-img m-auto text-center pl-0">
-                        <a href="#"><img src="theme/img/offer_icon.png" alt="" class="img-fluid"></a>
-                      </div>
+                <li  data-target="#home"><a class="nav-link smooth-scroll" href="/project/index.do">Home</a></li>
+                <li  data-target="#comp-offer"><a class="nav-link smooth-scroll" href="/project/news-list.do">News</a></li> 
+
                     </div>
                   </div>
                 </li>
@@ -64,7 +71,7 @@
                   <div class="search-open">
                     <div class="input-group animated fadeInUp">
                       <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
-                      <span class="input-group-addon" id="basic-addon2">Go</span>
+                      <input type="button" class="input-group-addon" id="basic-addon2" target="_self" value="GO">
                     </div>
                   </div>
                 </li> 
@@ -96,7 +103,10 @@
     <div id="home-p" class="home-p pages-head1 text-center">
       <div class="container">
         <h1 class="wow fadeInUp" data-wow-delay="0.1s">News</h1>
-        <p>Discover more</p>
+         <form method="post" action="/searchNews.do" target="_self">
+        <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2" name="query" style="width:90%; float:left">
+        <input type="submit" value="go" style="width:70px; height:38px">;
+        </form>
       </div><!--/end container-->
     </div> 
 
@@ -109,66 +119,38 @@
           <div class="col-md-10">
             <div class="single-news-p1-cont" style="margin-bottom: 30px; box-shadow: 1px 1px 1px rgba(0,0,0,0.1);">
              <table class="table" style="width:100%;">
-  <thead class="thead-dark">
+   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">제목</th>
+      <th scope="col">작성일</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+  	<tbody>
+  	<%if (nList.size() == 0){ %>
+		<%for(int i=0;i<naList.size();i++){ %>
+		
+		<tr class="load" style="display:none;">
+		
+			<td><a href ="<%=CmmUtil.nvl(naList.get(i).getImg())%>" target="_blank" style="color:black;" ><%=naList.get(i).getTitle()%></a></td>
+			<td><%=naList.get(i).getCollect_time()%></td>
+		</tr>
+		
+		<%} %>
+			
+		<%}else{ %>
+		<%for(int i=0;i<nList.size();i++){ %>
+		<tr class="load" style="display:none;">
+			<td><a href ="<%=CmmUtil.nvl(nList.get(i).getImg())%>" target="_blank" style="color:black;" ><%=nList.get(i).getTitle()%></a></td>
+			<td><%=nList.get(i).getCollect_time()%></td>
+		</tr>
+		<%} %>	
+		<%} %>
 
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+	</tbody>
+</table> 
+
+	<button id="load1">더 보기</button>
+		
             </div>
           </div> 
         </div>
@@ -179,7 +161,9 @@
 <!--====================================================
                       FOOTER
 ======================================================--> 
-    <footer>
+    <footer 
+    style="margin-top: 15%;"
+    >
 
         <div id="footer-bottom">
             <div class="container">
@@ -198,7 +182,6 @@
     </footer>
 
     <!--Global JavaScript -->
-    <script src="js/jquery/jquery.min.js"></script>
     <script src="js/popper/popper.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/wow/wow.min.js"></script>
@@ -208,6 +191,22 @@
     <script src="js/jquery-easing/jquery.easing.min.js"></script> 
 
     <script src="js/custom.js"></script> 
+    <script type="text/javascript">
+   $(function () {
+      $(".load").slice(0, 10).show();
+      if ($(".load:hidden").length == 0) {
+          $('#load1').attr('style', "display:none;");
+       }
+      $("#load1").click(function (e) {
+         e.preventDefault();
+         $(".load:hidden").slice(0, 10).show();
+         if ($(".load:hidden").length == 0) {
+            $('#load1').attr('style', "display:none;");
+         }
+      })
+   })
+
+</script>
   </body>
 
 </html>
