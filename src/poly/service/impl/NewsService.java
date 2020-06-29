@@ -73,56 +73,78 @@ public class NewsService implements INewsService {
 		// MongoDB Collection 생성하기
 		NewsMapper.createCollection(colNm);
 		
-		NewsMapper.createCollection(colNm2);
-		
 
 		// MongoDB에 데이터저장하기
 		NewsMapper.insertNews(pList, colNm);
 		
-		List<NewsAllDTO> nList = NewsMapper.getNewsAll(colNm2);
-		if (nList == null) {
-			nList = new ArrayList<NewsAllDTO>();
+		List<NewsAllDTO> AList = NewsMapper.getNewsAll(colNm2);
+		if (AList == null) {
+			AList = new ArrayList<NewsAllDTO>();
 		}
 		
-		int nSize = nList.size();
+		int ASize = AList.size();
 		
-		if(nSize == 0) {
+		if(ASize == 0) {
+			NewsMapper.createCollection(colNm2);
 			NewsMapper.insertNews(pList, colNm2);
+			log.info("###########################################");
 		}else {
 			
+			
 			ArrayList<String> titleAll = new ArrayList<>();
+			log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			log.info("AList.size :" + AList.size());
 			
-			for(int i=0;i<nSize;i++) {
+			
+			
+			for(int i=0;i<ASize;i++) {
 				
-				titleAll.add(nList.get(i).getTitle());
+				String Purl = AList.get(i).getImg();
+				
+				titleAll.add(Purl);
 			}
+			AList = new ArrayList<NewsAllDTO>();
 			
-			
-			
-			List<NewsAllDTO> naList = new ArrayList<>();
+			int tSize = titleAll.size();
+			for(int i=0;i<tSize;i++) {
+				log.info("###############"+titleAll.get(i));
+			}
 			
 			NewsAllDTO naDTO = new NewsAllDTO();
 			
-			for(int a=0;a<nList.size();a++) {
-				String title = nList.get(a).getTitle();
-				if(titleAll.contains(title)) {
+		
+			for(int a=0;a<pList.size();) {
+				String Purl = pList.get(a).getImg();
+				
+				if(!titleAll.contains(Purl)) {
+					a++;
 					continue;
 				}else {
-					naDTO.setCollect_time(nList.get(a).getCollect_time());
-					naDTO.setSeq(nList.get(a).getSeq());
-					naDTO.setTitle(nList.get(a).getTitle());
-					naDTO.setImg(nList.get(a).getImg());
-					
-					naList.add(naDTO);
-				}
-				
+					pList.remove(pList.get(a));
+					}
 			}
-			
-			// MongoDB에 데이터저장하기
-			NewsMapper.insertNewsAll(naList, colNm2);
-			
-		}
-		
+			log.info("pList.size : "+pList.size());
+					for(int a=0;a<pList.size();a++) {
+					naDTO.setTitle(pList.get(a).getTitle());
+					System.out.println("title :"+ pList.get(a).getTitle());
+					naDTO.setImg(pList.get(a).getImg());
+					naDTO.setSeq(pList.get(a).getSeq());
+					naDTO.setCollect_time(pList.get(a).getCollect_time());
+					
+					AList.add(naDTO);
+					
+					naDTO = new NewsAllDTO();
+					}
+					
+					for(int i=0;i<AList.size();i++) {
+						System.out.println("AList title :"+AList.get(i).getTitle());
+					}
+					
+					// MongoDB에 데이터저장하기
+					NewsMapper.insertNewsAll(AList, colNm2);
+					
+					
+				}
 		
 
 		// 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
