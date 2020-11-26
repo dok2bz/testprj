@@ -17,6 +17,9 @@
 	}  
     String user_name = (String) session.getAttribute("user_name");
     String user_mail = (String) session.getAttribute("user_mail");
+    		
+    
+
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +46,8 @@
 
     <!-- Core Stylesheets -->
     <link rel="stylesheet" href="/theme/css/news.css"> 
+    <script
+   src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
   </head>
 
   <body id="page-top">
@@ -63,8 +68,8 @@
             <ul class="navbar-nav ml-auto">
                 <li  data-target="#home"><a class="nav-link smooth-scroll" href="/project/index.do">Home</a></li>
                 <li  data-target="#comp-offer"><a class="nav-link smooth-scroll" href="/project/news-list.do">News</a></li> 
-                
-                            <%
+                <li  data-target="#comp-offer"><a class="nav-link smooth-scroll" href="/project/Community.do">Community</a></li> 
+            <%
                 if(session.getAttribute("user_name")==null){
                 	%>
                 <li  data-target=""><a class="nav-link smooth-scroll" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=c043a6a6eaa127bd1f5acdd060afd9ec&redirect_uri=http://localhost:8080/kakaologin.do&response_type=code'" >Login</a></li> 
@@ -77,7 +82,6 @@
                   }
                   %>
                  
-
                     </div>
                   </div>
                 </li>
@@ -115,13 +119,10 @@
 <!--====================================================
                        HOME-P
 ======================================================-->
-    <div id="home-p" class="home-p pages-head2 text-center">
+    <div id="home-p" class="home-p pages-head3 text-center">
       <div class="container">
-        <h1 class="wow fadeInUp" data-wow-delay="0.1s"><a class="nav-link smooth-scroll" href="/project/news-list.do" color="black">News</h1></a>
-         <form method="post" action="/searchNews.do" target="_self">
-        <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2" name="query" style="width:90%; float:left">
-        <input type="submit" value="Go" style="width:70px; height:38px">
-        </form>
+        <h1 class="wow fadeInUp" data-wow-delay="0.1s"><a class="nav-link smooth-scroll" href="/project/Community.do" color="white">Community</h1></a>
+      
       </div><!--/end container-->
     </div> 
 
@@ -131,37 +132,62 @@
     <section id="single-news-p1" class="single-news-p1">
       <div class="container">
         <div class="row">
-          <div class="col-md-10">
-            <div class="single-news-p1-cont" style="margin-bottom: 30px; box-shadow: 1px 1px 1px rgba(0,0,0,0.1);">
-             <table class="table" style="width:100%;">
-   <thead class="thead-dark">
-    <tr>
-      <th scope="col">제목</th>
-      <th scope="col">작성일</th>
-    </tr>
-  </thead>
-  	<tbody>
-  	<%if (nList.size() == 0){ %>
-		<%for(int i=0;i<naList.size();i++){ %>
-		
-		<tr class="load" style="display:none;">
-		
-			<td><a href ="<%=CmmUtil.nvl(naList.get(i).getImg())%>" target="_blank" style="color:black;" ><%=naList.get(i).getTitle()%></a></td>
-			<td><%=naList.get(i).getCollect_time()%></td>
-		</tr>
-		
-		<%} %>
-			
-		<%}else{ %>
-		<%for(int i=0;i<nList.size();i++){ %>
-		<tr class="load" style="display:none;">
-			<td><a href ="<%=CmmUtil.nvl(nList.get(i).getImg())%>" target="_blank" style="color:black;" ><%=nList.get(i).getTitle()%></a></td>
-			<td><%=nList.get(i).getCollect_time()%></td>
-		</tr>
-		<%} %>	
-		<%} %>
-
-	</tbody>
+        <div>
+                  <fieldset>
+                     <div id="messageWindow" style="border:2px solid black;display: block;                         
+                         height:400px;                      
+                           overflow-y:scroll;
+                         scroll-behavior:smooth;"></div>
+                     <br /> 
+                     
+                     <input id="inputMessage" type="text" /> <input
+                        type="submit" onclick="logincheck2()" value="전송" />
+                        
+                  </fieldset>
+               </div>
+<script>
+      var chat = io('http://localhost:3000/');
+      console.log(chat);
+      let user_name = "<%=user_name%>";
+      const user_mail = "<%=user_mail%>";
+      
+      function send() {         
+         
+         chat.emit("login", {
+               name: user_name,
+               userid: user_mail
+          });
+         chat.emit("chat",{
+              msg: $('#inputMessage').val()
+         });
+      }
+      
+      function logincheck2(){
+         
+         if (user_name == "null"){
+            user_name = "익명";
+            
+            send();
+            $('#inputMessage').val('');
+            
+         }else{            
+            send();
+            $('#inputMessage').val('');
+         }
+      }
+      
+      
+      chat.on("s2c chat", function(data){
+         var time = new Date();
+         var timeStr = time.toLocaleTimeString();
+         document.getElementById('messageWindow').innerHTML = "<div>"+"[ "+timeStr+ " ] " + data.from.name + " 님이 보낸 채팅 : " + data.msg + "</div>" + "<br/>" + document.getElementById('messageWindow').innerHTML;
+      })
+      
+      
+      
+   </script>
+        <br>
+          
 </table> 
 
 	<button id="load1">더 보기</button>

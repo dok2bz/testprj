@@ -113,6 +113,13 @@ public class ProjectController {
 		model.addAttribute("rList",rList);
 		return "/project/test";
 	}
+	
+	@RequestMapping(value = "test1")
+	public String test1(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+			throws Exception {
+		
+		return "/project/test1";
+	}
 
 	@RequestMapping(value = "project/news-list")
 	public String news(HttpServletRequest request, HttpServletResponse response, ModelMap model)
@@ -129,6 +136,22 @@ public class ProjectController {
 		
 		return "/project/news-list";
 	}
+	@RequestMapping(value = "project/Community")
+	public String community(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+			throws Exception {
+		
+		List<NewsAllDTO> naList= NewsService.getNewsAll();
+		
+		if (naList==null) {
+			naList = new ArrayList<NewsAllDTO>();
+		}
+		model.addAttribute("naList",naList);
+
+
+		
+		return "/project/Community";
+	}
+	
 }
 
 

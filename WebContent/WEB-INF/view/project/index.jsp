@@ -30,6 +30,10 @@
 		sList = new ArrayList<String>();
 	}
      
+    String user_name = (String) session.getAttribute("user_name");
+    String user_mail = (String) session.getAttribute("user_mail");
+    		
+    
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!--
@@ -51,7 +55,10 @@ License URL: https://creativecommons.org/licenses/by/4.0/
 
     <title>Business Bootstrap Responsive Template</title>
     <link rel="shortcut icon" href="/theme/img/favicon.ico">
-
+<script
+   src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+   <script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Global Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
     <link href="/theme/css/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -59,6 +66,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
     <link rel="stylesheet" href="/theme/css/animate/animate.min.css">
     <link rel="stylesheet" href="/theme/css/owl-carousel/owl.carousel.min.css">
     <link rel="stylesheet" href="/theme/css/owl-carousel/owl.theme.default.min.css">
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="/theme/css/style.css">
   </head>
 
@@ -79,7 +87,25 @@ License URL: https://creativecommons.org/licenses/by/4.0/
             <ul class="navbar-nav ml-auto">
                 <li  data-target="#home"><a class="nav-link smooth-scroll" href="#home">Home</a></li>
                 <li  data-target="#comp-offer"><a class="nav-link smooth-scroll" href="#comp-offer">News</a></li> 
+                <li  data-target="#service"><a class="nav-link smooth-scroll" href="#community">Community</a></li> 
                 <li  data-target="#service"><a class="nav-link smooth-scroll" href="#service-h">Ranking</a></li> 
+                
+            <%
+                if(session.getAttribute("user_name")==null){
+                	%>
+                <li  data-target=""><a class="nav-link smooth-scroll" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=c043a6a6eaa127bd1f5acdd060afd9ec&redirect_uri=http://localhost:8080/kakaologin.do&response_type=code'" >Login</a></li> 
+               
+                
+                  <%
+                }else{%>
+                  <li  data-target=""><a class="nav-link smooth-scroll" href="/kakaologout.do">Logout</a></li>
+                  <% 
+                  }
+                  %>
+                 
+                 
+                 
+              
                 <li>
                   <div class="top-menubar-nav">
                     <div class="topmenu ">
@@ -139,8 +165,6 @@ License URL: https://creativecommons.org/licenses/by/4.0/
             
             <div class="heading-border-light" ></div> 
 
-
-    
           </div>
           <div class="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
             <div class="desc-comp-offer-cont" >
@@ -151,8 +175,7 @@ License URL: https://creativecommons.org/licenses/by/4.0/
                   <img src="<%=CmmUtil.nvl(iList.get(0)) %>" class="img-fluid" alt="..." style="width:500px;height:350px;">
                   </a>
               </div>
-              
-          
+                 
               <h3><a href ="<%=CmmUtil.nvl(nList.get(0).getImg())%>" target="_blank" style="color:black;" ><%=CmmUtil.nvl(nList.get(0).getTitle())%></a></h3>
            
               <a href="#"><i class="fa fa-arrow-circle-o-right"></i> </a>
@@ -188,6 +211,79 @@ License URL: https://creativecommons.org/licenses/by/4.0/
           </div>
         </div>
       </div>
+    </section>
+    <hr>
+     
+     <section id="community">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-sm-6  desc-comp-offer wow fadeInUp" data-wow-delay="0.2s" >
+            <h2>Community</h2>
+            
+            <div class="heading-border-light" ></div> 
+
+<div>
+                  <fieldset>
+                     <div id="messageWindow" class="btn btn-dark" style="border:2px solid black;display: block;                         
+                         height:400px; width:1300px; margin-left:500px;                     
+                           overflow-y:scroll;
+                         scroll-behavior:smooth;"></div>
+                     <br /> 
+                     <div class="scrollbar scrollbar-black bordered-black square thin">
+  <div class="force-overflow"></div>
+</div>
+                     <input id="inputMessage" type="text" / style="margin-left:900px; width:500px;"> 
+                     <input type="submit" class="btn btn-dark" onclick="logincheck2()" value="보내기" style="margin-left:1130px; margin-top:15px;">
+                        
+                  </fieldset>
+               </div>
+<script>
+      var chat = io('http://localhost:3000/');
+      console.log(chat);
+      let user_name = "<%=user_name%>";
+      const user_mail = "<%=user_mail%>";
+      
+      function send() {         
+         
+         chat.emit("login", {
+               name: user_name,
+               userid: user_mail
+          });
+         chat.emit("chat",{
+              msg: $('#inputMessage').val()
+         });
+      }
+      
+      function logincheck2(){
+         
+         if (user_name == "null"){
+            user_name = "익명";
+            
+            send();
+            $('#inputMessage').val('');
+            
+         }else{            
+            send();
+            $('#inputMessage').val('');
+         }
+      }
+      
+      
+      chat.on("s2c chat", function(data){
+         var time = new Date();
+         var timeStr = time.toLocaleTimeString();
+         document.getElementById('messageWindow').innerHTML = "<div>"+"[ "+timeStr+ " ] " + data.from.name + " 님이 보낸 채팅 : " + data.msg + "</div>" + "<br/>" + document.getElementById('messageWindow').innerHTML;
+      })
+      
+      
+      
+   </script>
+    
+          </div>
+          
+          </div>
+        </div>
+      
     </section>
     <hr>
 <section id="service-h">
